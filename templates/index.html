@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Alex's Blog - Home{% endblock %}
+
+{% block hero %}
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">Welcome to My Blog</h1>
+            <p class="hero-subtitle">Sharing thoughts on technology, lifestyle, travel, and everything in between. Join me on this journey of exploration and discovery.</p>
+            <form action="{{ url_for('search') }}" method="GET" class="search-form">
+                <input type="text" name="q" class="search-input" placeholder="Search articles...">
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<!-- Featured Post -->
+{% if featured_post %}
+<section class="featured-post" style="margin-bottom: 50px;">
+    <h2 style="margin-bottom: 25px;">Featured Article</h2>
+    <div class="post-card" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0;">
+        <div class="post-card-image">
+            <img src="{{ featured_post.image }}" alt="{{ featured_post.title }}">
+        </div>
+        <div class="post-card-content" style="display: flex; flex-direction: column; justify-content: center;">
+            <span class="post-card-category">{{ featured_post.category }}</span>
+            <h3 class="post-card-title">
+                <a href="{{ url_for('post', post_id=featured_post.id) }}">{{ featured_post.title }}</a>
+            </h3>
+            <p class="post-card-excerpt">{{ featured_post.excerpt }}</p>
+            <div class="post-card-meta">
+                <span class="post-card-date">
+                    <i class="far fa-calendar"></i> {{ featured_post.date }}
+                </span>
+                <span class="post-card-read-time">
+                    <i class="far fa-clock"></i> {{ featured_post.read_time }}
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Main Content with Sidebar -->
+<div class="content-wrapper">
+    <div class="posts-section">
+        <h2 style="margin-bottom: 25px;">Recent Articles</h2>
+        <div class="posts-grid">
+            {% for post in posts %}
+            <article class="post-card animate-slide-up delay-{{ loop.index }}">
+                <div class="post-card-image">
+                    <img src="{{ post.image }}" alt="{{ post.title }}">
+                    <span class="post-card-category">{{ post.category }}</span>
+                </div>
+                <div class="post-card-content">
+                    <h3 class="post-card-title">
+                        <a href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a>
+                    </h3>
+                    <p class="post-card-excerpt">{{ post.excerpt }}</p>
+                    <div class="post-card-meta">
+                        <span class="post-card-date">
+                            <i class="far fa-calendar"></i> {{ post.date }}
+                        </span>
+                        <span class="post-card-read-time">
+                            <i class="far fa-clock"></i> {{ post.read_time }}
+                        </span>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <!-- Categories Widget -->
+        <div class="sidebar-widget">
+            <h3>Categories</h3>
+            <ul class="categories-list">
+                {% for category in categories %}
+                <li>
+                    <a href="{{ url_for('category', category_name=category) }}">
+                        {{ category }}
+                        <span>{{ posts|selectattr('category', 'equalto', category)|list|length }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Recent Posts Widget -->
+        <div class="sidebar-widget">
+            <h3>Recent Posts</h3>
+            {% for post in posts[:3] %}
+            <div class="recent-post-item">
+                <img src="{{ post.image }}" alt="{{ post.title }}">
+                <div class="recent-post-info">
+                    <h4><a href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h4>
+                    <span class="date">{{ post.date }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- About Widget -->
+        <div class="sidebar-widget about-widget">
+            <h3>About Me</h3>
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200" alt="Author">
+            <p>Hi! I'm Alex. I'm a writer, developer, and lifelong learner passionate about sharing knowledge and experiences.</p>
+            <a href="{{ url_for('about') }}" class="btn" style="margin-top: 15px; padding: 10px 25px; font-size: 0.9rem;">Read More</a>
+        </div>
+    </aside>
+</div>
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}All Posts - Alex's Blog{% endblock %}
+
+{% block hero %}
+<section class="page-header">
+    <div class="container">
+        <h1>Blog Posts</h1>
+        <p>Explore all articles and thought pieces</p>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<div class="content-wrapper">
+    <div class="posts-section">
+        {% if search_query %}
+        <div style="margin-bottom: 30px; padding: 20px; background: var(--card-bg); border-radius: 8px;">
+            <p>Search results for: <strong>"{{ search_query }}"</strong> - {{ posts|length }} found</p>
+            <a href="{{ url_for('posts_page') }}" style="margin-top: 10px; display: inline-block;">← Clear search</a>
+        </div>
+        {% endif %}
+
+        {% if current_category %}
+        <div style="margin-bottom: 30px; padding: 20px; background: var(--card-bg); border-radius: 8px;">
+            <p>Category: <strong>{{ current_category }}</strong> - {{ posts|length }} posts</p>
+            <a href="{{ url_for('posts_page') }}" style="margin-top: 10px; display: inline-block;">← View all posts</a>
+        </div>
+        {% endif %}
+
+        {% if posts %}
+        <div class="posts-grid">
+            {% for post in posts %}
+            <article class="post-card animate-slide-up delay-{{ loop.index }}">
+                <div class="post-card-image">
+                    <img src="{{ post.image }}" alt="{{ post.title }}">
+                    <span class="post-card-category">{{ post.category }}</span>
+                </div>
+                <div class="post-card-content">
+                    <h3 class="post-card-title">
+                        <a href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a>
+                    </h3>
+                    <p class="post-card-excerpt">{{ post.excerpt }}</p>
+                    <div class="post-card-meta">
+                        <span class="post-card-date">
+                            <i class="far fa-calendar"></i> {{ post.date }}
+                        </span>
+                        <span class="post-card-read-time">
+                            <i class="far fa-clock"></i> {{ post.read_time }}
+                        </span>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div style="text-align: center; padding: 60px 20px;">
+            <h2>No posts found</h2>
+            <p>There are no posts to display at the moment.</p>
+            <a href="{{ url_for('posts_page') }}" class="btn" style="margin-top: 20px;">View All Posts</a>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <!-- Categories Widget -->
+        <div class="sidebar-widget">
+            <h3>Categories</h3>
+            <ul class="categories-list">
+                {% for category in categories %}
+                <li>
+                    <a href="{{ url_for('category', category_name=category) }}">
+                        {{ category }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Recent Posts Widget -->
+        <div class="sidebar-widget">
+            <h3>Recent Posts</h3>
+            {% for post in posts[:3] if posts %}
+            <div class="recent-post-item">
+                <img src="{{ post.image }}" alt="{{ post.title }}">
+                <div class="recent-post-info">
+                    <h4><a href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h4>
+                    <span class="date">{{ post.date }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- About Widget -->
+        <div class="sidebar-widget about-widget">
+            <h3>About Me</h3>
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200" alt="Author">
+            <p>Hi! I'm Alex. I'm a writer, developer, and lifelong learner passionate about sharing knowledge.</p>
+            <a href="{{ url_for('about') }}" class="btn" style="margin-top: 15px; padding: 10px 25px; font-size: 0.9rem;">Read More</a>
+        </div>
+    </aside>
+</div>
+{% endblock %}

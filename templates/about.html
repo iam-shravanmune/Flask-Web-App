@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}About Me - Alex's Blog{% endblock %}
+
+{% block hero %}
+<section class="page-header">
+    <div class="container">
+        <h1>About Me</h1>
+        <p>Get to know the person behind the blog</p>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<div class="about-hero">
+    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" alt="Alex Rivera">
+    <h1>Hi, I'm Alex Rivera</h1>
+    <p>Writer, Developer, and Lifelong Learner</p>
+</div>
+
+<div class="about-content">
+    <div class="about-section">
+        <h2>My Story</h2>
+        <p>Hello and welcome to my blog! I'm Alex, a passionate writer and developer based in the beautiful Pacific Northwest.</p>
+        <p>I've been writing about technology, lifestyle, and personal growth for over five years. My journey began with a simple curiosity about how things work, which evolved into a deep passion for sharing knowledge with others.</p>
+        <p>When I'm not writing or coding, you can find me exploring the outdoors, experimenting with new recipes, or getting lost in a good book.</p>
+    </div>
+
+    <div class="about-section">
+        <h2>My Skills</h2>
+        <ul class="skills-list">
+            <li>Web Development (Python, JavaScript, HTML/CSS)</li>
+            <li>Technical Writing</li>
+            <li>Content Strategy</li>
+            <li>Photography</li>
+            <li>Digital Marketing</li>
+            <li>Public Speaking</li>
+        </ul>
+    </div>
+
+    <div class="about-section">
+        <h2>What I Write About</h2>
+        <p>This blog covers a wide range of topics that interest me:</p>
+        <ul class="skills-list">
+            <li><strong>Technology:</strong> Web development, programming, and tech trends</li>
+            <li><strong>Lifestyle:</strong> Personal growth, habits, and mindfulness</li>
+            <li><strong>Travel:</strong> Destinations, tips, and travel stories</li>
+            <li><strong>Food:</strong> Recipes, restaurant reviews, and cooking tips</li>
+            <li><strong>Tutorials:</strong> Step-by-step guides and how-tos</li>
+        </ul>
+    </div>
+
+    <div class="about-section">
+        <h2>Get In Touch</h2>
+        <p>I'd love to hear from you! Whether you have a question, want to collaborate, or just want to say hi, feel free to reach out.</p>
+        <p>You can contact me through the contact form or connect with me on social media.</p>
+        <a href="{{ url_for('contact') }}" class="btn" style="margin-top: 20px;">Contact Me</a>
+    </div>
+</div>
+{% endblock %}
