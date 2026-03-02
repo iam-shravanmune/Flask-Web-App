@@ -1,4 +1,4 @@
-name: Flask CI Pipeline
+nname: Flask CI Pipeline
 
 on:
   push:
@@ -11,4 +11,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - run: echo "CI is working!"
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Check Python syntax
+      run: python -m py_compile app.py
+
+    - name: Build Docker image
+      run: docker build -t flask-app .
