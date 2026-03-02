@@ -17,10 +17,8 @@ The primary focus of this project is to implement Continuous Integration (CI) be
 
 ## Architecture Overview
 
-```
-<img width="1000" height="597" alt="diagram-export-3-2-2026-3_38_52-PM" src="https://github.com/user-attachments/assets/67a4443b-c11a-41a1-a1ef-7ad89e0c7557" />
+<img width="1000" height="597" alt="diagram-export-3-2-2026-3_38_52-PM" src="https://github.com/user-attachments/assets/38c18bc4-37f5-4422-8174-71912529ee87" />
 
-```
 
 ---
 
@@ -64,7 +62,7 @@ sudo apt update
 sudo apt install docker.io -y
 docker ps
 ```
-### if permission denied by daemon
+**If permission denied by daemon:**
 ```
 bash
 sudo usermod -aG docker $USER
