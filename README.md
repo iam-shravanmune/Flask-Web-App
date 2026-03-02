@@ -18,7 +18,8 @@ The primary focus of this project is to implement Continuous Integration (CI) be
 ## Architecture Overview
 
 ```
-![alt text](diagram-export-3-2-2026-3_38_52-PM.png)
+<img width="1000" height="597" alt="diagram-export-3-2-2026-3_38_52-PM" src="https://github.com/user-attachments/assets/67a4443b-c11a-41a1-a1ef-7ad89e0c7557" />
+
 ```
 
 ---
@@ -62,7 +63,10 @@ bash
 sudo apt update
 sudo apt install docker.io -y
 docker ps
-#if permission denied by daemon
+```
+### if permission denied by daemon
+```
+bash
 sudo usermod -aG docker $USER
 newgrp
 ```
